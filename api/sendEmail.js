@@ -2,6 +2,7 @@ import emailjs from '@emailjs/browser';
 
 export default async function handler(req, res) {
   console.log("💡 Request received");
+  console.log("Request: ", req);
 
   if (req.method !== 'POST') {
     console.log("❌ Invalid request method:", req.method);
