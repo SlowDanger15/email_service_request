@@ -94,19 +94,20 @@ export default async function handler(req, res) {
           },
           body: JSON.stringify(payload)
         });
-  
+        
+        console.log("Response: ", response)
         // const result = await response.json();
         const contentType = response.headers.get('content-type');
         const responseBody = contentType?.includes('application/json')
             ? await response.json()
             : await response.text();
-  
+        console.log("Response Body: ", responseBody)
         if (response.ok) {
-          console.log("✅ Email sent successfully!", result);
-          return res.status(200).json({ success: true, result });
+          console.log("✅ Email sent successfully!", responseBody);
+          return res.status(200).json({ success: true, responseBody });
         } else {
-          console.log("❌ Email sending failed:", result);
-          return res.status(500).json({ success: false, error: result });
+          console.log("❌ Email sending failed:", responseBody);
+          return res.status(500).json({ success: false, error: responseBody });
         }
       } catch (error) {
         console.log("🔥 Unexpected error:", error);
