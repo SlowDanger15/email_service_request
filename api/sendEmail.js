@@ -95,7 +95,11 @@ export default async function handler(req, res) {
           body: JSON.stringify(payload)
         });
   
-        const result = await response.json();
+        // const result = await response.json();
+        const contentType = response.headers.get('content-type');
+        const responseBody = contentType?.includes('application/json')
+            ? await response.json()
+            : await response.text();
   
         if (response.ok) {
           console.log("✅ Email sent successfully!", result);
