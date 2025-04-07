@@ -66,7 +66,7 @@ export default async function handler(req, res) {
 
     // ✅ CORS headers for actual POST response
     res.setHeader('Access-Control-Allow-Origin', '*');
-    
+
     console.log("✅ POST request accepted");
     // Manually parse body if not auto-parsed
     let body = '';
@@ -104,6 +104,7 @@ export default async function handler(req, res) {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
+            'Origin': 'https://slowdanger15.github.io'
           },
           body: JSON.stringify(payload)
         });
