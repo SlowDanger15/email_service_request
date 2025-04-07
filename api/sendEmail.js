@@ -49,11 +49,24 @@
 
 export default async function handler(req, res) {
     console.log("💡 Request received");
+
+    // ✅ Handle CORS preflight
+    if (req.method === 'OPTIONS') {
+        console.log("🛬 Preflight request handled");
+        res.setHeader('Access-Control-Allow-Origin', '*');
+        res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+        res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+        return res.status(204).end(); // No Content
+    }
   
     if (req.method !== 'POST') {
       console.log("❌ Invalid request method:", req.method);
       return res.status(405).json({ message: 'Only POST requests allowed' });
     }
+
+    // ✅ CORS headers for actual POST response
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    
     console.log("✅ POST request accepted");
     // Manually parse body if not auto-parsed
     let body = '';
